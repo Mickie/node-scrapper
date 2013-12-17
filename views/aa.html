@@ -1,0 +1,63 @@
+<html>
+<head>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <script>
+
+       function show(){
+           var keyword=$("#keyword").val();
+
+           $.ajax({
+               url:"/searchResult",
+               data:{
+                   keyword:keyword
+               },
+              error: function(){
+                  alert("error ");
+              },
+              success: function(data){
+                  var theData=JSON.parse(data);
+                  alert(theData);
+//                 showInDiv(theData);
+              }
+           })
+
+       }
+
+        function showInDiv(data){
+            for(i=0;i<5;i++){
+                var element=document.getElementById('main-content');
+                var newContent="<a href="""
+
+
+
+
+            }
+
+
+
+
+     }
+
+
+
+    </script>
+
+</head>
+<body>
+ <button onclick="show()">click me</button>
+<input type="text" id="keyword" class="search_text" value="">
+
+<div id="wrapper">
+    <div id="main-content">
+
+
+
+
+    </div>
+</div>
+</body>
+</html>
+
+
