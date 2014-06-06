@@ -8,10 +8,9 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
-var getResult = require ('./routes/showResult');
+var scrapper = require ('./routes/theHandler');
 
 var app = express();
-
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
@@ -32,7 +31,7 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/users', user.list);
-app.get('/searchResult',getResult.showResult); //ex./searchResult?keyword=123
+app.get('/scrapper',scrapper.showResult); //ex./searchResult?keyword=123
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

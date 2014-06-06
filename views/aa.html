@@ -1,62 +1,83 @@
 <html>
 <head>
-    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-    <script src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <title>manfen5.com数学－试题</title>
+    <script src="/javascripts/jquery-1.9.1.min.js"></script>
     <script>
+        function fire(){ //manfen5.com
+            var gradeSelected=$('#grade').val();
+            $.ajax({
+                url:"/scrapper",
+                data:{grade:gradeSelected},
+                error:function(){
+                 alert('err');
+                },
+                success:function(data){
+                    $('#result').empty();
+                    var theData=JSON.parse(data);
+                    for(var i=0;i<theData.length;i++){
+                        var item=(theData[i]);
+//                        var result="<p>{ href: "+item.href+", grade: "+item.grade+",pageUrl: "+item.pageUrl+"</p>";
+                          var result="<p>{ q: "+item.que+" , a: "+item.ans+"}</p>";
+                        $("#result").append(result);
+                    }
+                }
+            })
+        }
 
-       function show(){
-           var keyword=$("#keyword").val();
-
-           $.ajax({
-               url:"/searchResult",
-               data:{
-                   keyword:keyword
-               },
-              error: function(){
-                  alert("error ");
-              },
-              success: function(data){
-                  var theData=JSON.parse(data);
-                  alert(theData);
-//                 showInDiv(theData);
-              }
-           })
-
-       }
-
-        function showInDiv(data){
-            for(i=0;i<5;i++){
-                var element=document.getElementById('main-content');
-                var newContent="<a href="""
-
-
-
-
-            }
-
-
-
-
-     }
-
-
-
+        function fireJyeoo(){
+            var subject=$("#subject").val();
+            $.ajax({
+                url:"/getJyeoo",
+                data:{subject:subject},
+                error:function(){
+                    alert('can to getJyeoo');
+                }
+            })
+        }
     </script>
-
 </head>
 <body>
- <button onclick="show()">click me</button>
-<input type="text" id="keyword" class="search_text" value="">
 
 <div id="wrapper">
     <div id="main-content">
+
+    <h3>满分网</h3>
+    <label>选择数学－试题</label>
+      <select id="grade">
+          <option value="G010">grade 7</option>
+          <option value="G020">grade 8</option>
+          <option value="G030">grade 9</option>
+      </select>
+    <button onclick="fire()">start</button>
+    <br>
+    <hr>
+    <br>
+
+     <h3>jyeoo.com</h3>
+        <select id="subject">
+            <option value="math">初中数学－试题</option>
+            <option value="bio">初中生物－试题</option>
+            <option value="physics">初中物理－试题</option>
+            <option value="geography">初中地理－试题</option>
+            <option value="chemistry">初中化学－试题</option>
+            <option value="math2">高中数学－试题</option>
+            <option value="physics2">高中物理－试题</option>
+            <option value="chemistry2">高中化学－试题</option>
+            <option value="math3">小学数学－试题</option>
+        </select>
+        <button onclick="fireJyeoo()">start</button>
+
+
+
+
+
 
 
 
 
     </div>
 </div>
+<div id="result"></div>
 </body>
 </html>
 
